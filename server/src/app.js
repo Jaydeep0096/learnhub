@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import courseRoutes from './routes/courseRoutes.js';
 import { notFound, errorHandler } from './middleware/errors.js';
+import enrollmentRoutes from './routes/enrollmentRoutes.js';   
 
 export function createApp() {
   const app = express();
@@ -11,7 +12,11 @@ export function createApp() {
   app.get('/api/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
   app.use('/api/courses', courseRoutes);
 
+   app.use('/api/courses', courseRoutes);
+  app.use('/api/enrollments', enrollmentRoutes);  
+
   app.use(notFound);
-  app.use(errorHandler);
+  app.use(errorHandler);                
+
   return app;
 }
